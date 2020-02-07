@@ -18,36 +18,34 @@ const Actors = ({actors}) => (
 let template = (
     <div>
         <h1>Movie: {app.title}</h1>
-        <p>Director: {app.subtitle}</p>
+        {(app.subtitle && <p>Director: {app.subtitle}</p>)}
         <ol>
-            <Actors actors={app.actors}></Actors>
+            {app.actors && app.actors.length > 0 ? <Actors actors={app.actors}></Actors> : <p>No Actors</p>}
         </ol>
     </div>
 );
 
 let user = {
     name: 'Mike Pitt',
-    age: 22,
-    location: 'San Diego'
+    age: 19,
+    location: 'Ciudad de México'
 }
 
 function getLocation (location) {
     if(location) {
-        return location
-    } else {
-        return 'Unknow';
+    return <p>Location: {location}</p>
     }
 };
 
 let templateTwo = (
     <div>
-        <h1>{user.name.toUpperCase()}</h1>
-        <p>Age: {user.age}</p>
-        <p>Location: {getLocation(user.location)}</p>
+        <h1>{user.name ? user.name : 'Anonymous'}</h1>
+        {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
+        {getLocation(user.location)}
     </div>
 );
 
 const container = document.getElementById('app');
 
-// ReactDom.render(__qué__, __dónde__);
-ReactDom.render(templateTwo, container);
+// ReactDom.render(__what__, __where__);
+ReactDom.render(template, container);
