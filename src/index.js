@@ -9,8 +9,8 @@ let app = {
 
 const Actors = ({actors}) => (
     <div>
-        {actors.map(actor => (
-            <li>{actor}</li>
+        {actors.map((actor, index) => (
+            <li key={index}>{actor}</li>
         ))}
     </div>
 );
@@ -22,6 +22,10 @@ let template = (
         <ol>
             {app.actors && app.actors.length > 0 ? <Actors actors={app.actors}></Actors> : <p>No Actors</p>}
         </ol>
+        <form>
+            <input type="text" name="option"></input>
+            <button>Add Option</button>
+        </form>
     </div>
 );
 
@@ -45,7 +49,7 @@ let templateTwo = (
     </div>
 );
 
-const container = document.getElementById('app');
+const container = document.getElementById('app')
 
 // ReactDom.render(__what__, __where__);
-ReactDom.render(template, container);
+ReactDom.render(template, container)
