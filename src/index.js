@@ -1,55 +1,82 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-let app = {
-    title:  'Jojo Rabbit',
-    subtitle: 'Taika Waititi',
-    actors: ['Scarlett', 'Jhon']
-}
+class IndecisionApp extends React.Component {
+    render() {
+        const title = 'Indecision';
+        const subtitle = 'Put yout life in the hands of a computerh';
+        const options = ['Thing one', 'Thing two', 'Thing four']
 
-const Actors = ({actors}) => (
-    <div>
-        {actors.map((actor, index) => (
-            <li key={index}>{actor}</li>
-        ))}
-    </div>
-);
+        const data = {
+            title: 'Indecision',
+            subtitle: 'Put yout life in the hands of a computerh'
+        }
 
-let template = (
-    <div>
-        <h1>Movie: {app.title}</h1>
-        {(app.subtitle && <p>Director: {app.subtitle}</p>)}
-        <ol>
-            {app.actors && app.actors.length > 0 ? <Actors actors={app.actors}></Actors> : <p>No Actors</p>}
-        </ol>
-        <form>
-            <input type="text" name="option"></input>
-            <button>Add Option</button>
-        </form>
-    </div>
-);
-
-let user = {
-    name: 'Mike Pitt',
-    age: 19,
-    location: 'Ciudad de México'
-}
-
-function getLocation (location) {
-    if(location) {
-    return <p>Location: {location}</p>
+        return (
+            <div>
+                <Header data={data}/>
+                <Action/>
+                <Options options={options}/>
+                <AddOption/>
+            </div>
+        );
     }
-};
+}
 
-let templateTwo = (
-    <div>
-        <h1>{user.name ? user.name : 'Anonymous'}</h1>
-        {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
-        {getLocation(user.location)}
-    </div>
-);
+class Header extends React.Component {
+    render() {
+        console.log(this.props)
+        return (
+            <div>
+                <h1>{this.props.data.title}</h1>
+                <h2>{this.props.data.subtitle}</h2>
+            </div>
+        );
+    }
+}
 
-const container = document.getElementById('app')
+class Action extends React.Component {
+    render() {
+        return (
+            <div>
+                <button>What should I do?</button>
+            </div>
+        );
+    }
+}
 
-// ReactDom.render(__what__, __where__);
-ReactDom.render(template, container)
+class Options extends React.Component {
+    render() {
+        return (
+            <div>
+                <ol>
+                {
+                    this.props.options.map((option, index) => <Option optionText={option} key={index}/>)
+                }
+                </ol>
+            </div>
+        );
+    }
+}
+
+class AddOption extends React.Component {
+    render() {
+        return (
+            <div>
+                <p>Add option!</p>
+            </div>
+        );
+    }
+}
+
+class Option extends React.Component {
+    render() {
+        return (
+            <li>
+                {this.props.optionText}
+            </li>
+        );
+    }
+}
+
+ReactDom.render(<IndecisionApp/>, document.getElementById('app'));
